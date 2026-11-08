@@ -1,0 +1,10 @@
+
+name = "ai-counter-api"
+main = "src/index.js"
+compatibility_date = "2026-11-08"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ai-counter-db"
+database_id = "VUL_HIER_JE_DATABASE_ID_IN"
+migrations_dir = "migrations"
