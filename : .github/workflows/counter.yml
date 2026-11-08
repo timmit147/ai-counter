@@ -1,0 +1,41 @@
+name: AI Counter
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-counter
+  cancel-in-progress: false
+
+jobs:
+  counter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Increase counter
+        run: |
+          if [ -f count.txt ]; then
+            COUNT=$(cat count.txt)
+          else
+            COUNT=0
+          fi
+
+          COUNT=$((COUNT + 1))
+          echo "$COUNT" > count.txt
+
+          echo "AI Counter: $COUNT"
+
+      - name: Push counter to GitHub
+        run: |
+          git config user.name "AI Counter"
+          git config user.email "ai-counter@users.noreply.github.com"
+
+          git add count.txt
+          git commit -m "AI Counter: +1"
+          git push
